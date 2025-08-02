@@ -1,4 +1,4 @@
-// Mapeamento de imagens locais dos jogos
+// Game image mapping for local assets
 const gameImageMapping = {
     'Octhopath Traveler': 'images/games/octopath-traveler.jpg',
     'INSIDE': 'images/games/inside.png',
@@ -9,16 +9,32 @@ const gameImageMapping = {
     'The Spider Man Miles Morales': 'images/games/spider-man-miles-morales.jpg',
     'Super Mario 3D World': 'images/games/super-mario-3d-world.jpg',
     'Assasins Creed Brotherhood': 'images/games/assassins-creed-brotherhood.jpg',
-    // Adicionar mais jogos conforme necessário
+    // Default fallback image
+    'default': 'images/games/default-game.png'
 };
 
-// Função para obter imagem local do jogo
+// Function to get game image path
 function getGameImage(gameName) {
-    return gameImageMapping[gameName] || 'images/games/default-game.png';
+    // Try exact match first
+    if (gameImageMapping[gameName]) {
+        return gameImageMapping[gameName];
+    }
+    
+    // Try partial match for similar names
+    const normalizedName = gameName.toLowerCase();
+    for (const [key, value] of Object.entries(gameImageMapping)) {
+        if (key.toLowerCase().includes(normalizedName) || normalizedName.includes(key.toLowerCase())) {
+            return value;
+        }
+    }
+    
+    // Return default if no match found
+    return gameImageMapping.default;
 }
 
-// Exportar para uso no script principal
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { gameImageMapping, getGameImage };
+// Export for use in main script
+if (typeof window !== 'undefined') {
+    window.gameImageMapping = gameImageMapping;
+    window.getGameImage = getGameImage;
 }
 

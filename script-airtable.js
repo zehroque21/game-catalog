@@ -222,29 +222,18 @@ class GameCatalogAirtable {
         document.getElementById('genreFilter').addEventListener('change', () => this.filterGames());
         document.getElementById('sortBy').addEventListener('change', () => this.filterGames());
 
-        // Keyboard events
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') this.closeModal();
-        });
-
-        // Reset configuration button
-        this.addResetButton();
-    }
-
-    addResetButton() {
-        const resetBtn = document.createElement('button');
-        resetBtn.innerHTML = '⚙️';
-        resetBtn.style.cssText = 'position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: #3498db; color: white; border: none; font-size: 20px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3);';
-        resetBtn.title = 'Reset Configuration';
-        
-        resetBtn.addEventListener('click', () => {
+        // Settings button
+        document.getElementById('settingsBtn').addEventListener('click', () => {
             if (confirm('Reset Airtable configuration? You will need to enter your token again.')) {
                 localStorage.removeItem('airtableToken');
                 location.reload();
             }
         });
-        
-        document.body.appendChild(resetBtn);
+
+        // Keyboard events
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') this.closeModal();
+        });
     }
 
     bindRatingEvents() {
@@ -516,7 +505,8 @@ class GameCatalogAirtable {
     }
 
     createGameCard(game) {
-        const imageUrl = game.imageUrl || this.getPlaceholderImage(game);
+        // Use local image mapping if available, otherwise fallback to provided URL
+        const imageUrl = this.getGameImageUrl(game);
         const stars = '★'.repeat(game.rating) + '☆'.repeat(5 - game.rating);
         
         return `
@@ -546,6 +536,19 @@ class GameCatalogAirtable {
                 </div>
             </div>
         `;
+    }
+
+    getGameImageUrl(game) {
+        // First try to get local image using the mapping
+        if (typeof window.getGameImage === 'function') {
+            const localImage = window.getGameImage(game.name);
+            if (localImage && localImage !== 'images/games/default-game.png') {
+                return localImage;
+            }
+        }
+        
+        // Fallback to provided URL or placeholder
+        return game.imageUrl || this.getPlaceholderImage(game);
     }
 
     getPlaceholderImage(game) {
@@ -587,10 +590,21 @@ class GameCatalogAirtable {
         const totalGames = this.games.length;
         const totalHours = this.games.reduce((sum, game) => sum + game.hoursPlayed, 0);
         const avgRating = totalGames > 0 ? (this.games.reduce((sum, game) => sum + game.rating, 0) / totalGames).toFixed(1) : 0;
+        
+        // Calculate top genre
+        const genreCounts = {};
+        this.games.forEach(game => {
+            genreCounts[game.genre] = (genreCounts[game.genre] || 0) + 1;
+        });
+        
+        const topGenre = Object.keys(genreCounts).reduce((a, b) => 
+            genreCounts[a] > genreCounts[b] ? a : b, '-'
+        );
 
         document.getElementById('totalGames').textContent = totalGames;
         document.getElementById('totalHours').textContent = totalHours;
-        document.getElementById('avgRating').textContent = avgRating;
+        document.getElementById('averageRating').textContent = avgRating;
+        document.getElementById('topGenre').textContent = totalGames > 0 ? topGenre : '-';
     }
 
     editGame(gameId) {

@@ -3,145 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Catalog - Track Your Completed Games</title>
+    <title>🎮 Retro Game Catalog - Track Your Gaming Journey</title>
+    <meta name="description" content="A retro-styled game catalog to track your completed games with style">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="logo">
-                    <i class="fas fa-gamepad"></i>
-                    Game Catalog
-                </h1>
-                <button class="add-game-btn" id="addGameBtn">
-                    <i class="fas fa-plus"></i>
-                    Add Game
-                </button>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🕹️</div>
+                <h1>RETRO GAME CATALOG</h1>
             </div>
-        </header>
+            <button class="add-game-btn" id="addGameBtn">
+                <i class="fas fa-plus"></i> ADD GAME
+            </button>
+        </div>
+    </header>
 
-        <!-- Stats Dashboard -->
-        <section class="stats-section">
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="totalGames">0</h3>
-                        <p>Games Completed</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="totalHours">0</h3>
-                        <p>Hours Played</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="avgRating">0.0</h3>
-                        <p>Average Rating</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-calendar"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="thisYear">0</h3>
-                        <p>This Year</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Stats Dashboard -->
+    <section class="stats-dashboard" id="statsDashboard">
+        <div class="stat-card">
+            <div class="stat-icon">🎮</div>
+            <div class="stat-number" id="totalGames">0</div>
+            <div class="stat-label">Games Completed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">⏱️</div>
+            <div class="stat-number" id="totalHours">0</div>
+            <div class="stat-label">Hours Played</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-number" id="averageRating">0.0</div>
+            <div class="stat-label">Average Rating</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-number" id="topGenre">-</div>
+            <div class="stat-label">Top Genre</div>
+        </div>
+    </section>
 
-        <!-- Filters and Search -->
-        <section class="filters-section">
-            <div class="year-tabs" id="yearTabs">
-                <!-- Year tabs will be dynamically inserted here -->
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="year-tabs" id="yearTabs">
+            <!-- Year tabs will be dynamically generated -->
+        </div>
+        
+        <div class="filters-grid">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Search games...">
             </div>
-            <div class="filters-container">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Search games...">
-                </div>
-                <div class="filter-group">
-                    <select id="platformFilter">
-                        <option value="">All Platforms</option>
-                        <option value="PC">PC</option>
-                        <option value="PlayStation">PlayStation</option>
-                        <option value="Xbox">Xbox</option>
-                        <option value="Nintendo">Nintendo</option>
-                        <option value="Mobile">Mobile</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <select id="genreFilter">
-                        <option value="">All Genres</option>
-                        <option value="RPG">RPG</option>
-                        <option value="Action">Action</option>
-                        <option value="Adventure">Adventure</option>
-                        <option value="Strategy">Strategy</option>
-                        <option value="Puzzle">Puzzle</option>
-                        <option value="Sports">Sports</option>
-                        <option value="Racing">Racing</option>
-                        <option value="Simulation">Simulation</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <select id="sortBy">
-                        <option value="date-desc">Latest First</option>
-                        <option value="date-asc">Oldest First</option>
-                        <option value="rating-desc">Highest Rated</option>
-                        <option value="rating-asc">Lowest Rated</option>
-                        <option value="hours-desc">Most Hours</option>
-                        <option value="hours-asc">Least Hours</option>
-                        <option value="name-asc">A-Z</option>
-                        <option value="name-desc">Z-A</option>
-                    </select>
-                </div>
-            </div>
-        </section>
+            <select id="platformFilter" class="filter-select">
+                <option value="">All Platforms</option>
+                <option value="PC">PC</option>
+                <option value="PlayStation">PlayStation</option>
+                <option value="Xbox">Xbox</option>
+                <option value="Nintendo">Nintendo</option>
+                <option value="Mobile">Mobile</option>
+                <option value="Other">Other</option>
+            </select>
+            <select id="genreFilter" class="filter-select">
+                <option value="">All Genres</option>
+                <option value="RPG">RPG</option>
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Strategy">Strategy</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="Sports">Sports</option>
+                <option value="Racing">Racing</option>
+                <option value="Simulation">Simulation</option>
+                <option value="Other">Other</option>
+            </select>
+            <select id="sortBy" class="filter-select">
+                <option value="name">Sort by Name</option>
+                <option value="rating">Sort by Rating</option>
+                <option value="hours">Sort by Hours</option>
+                <option value="date">Sort by Date</option>
+            </select>
+        </div>
+    </section>
 
-        <!-- Games Grid -->
-        <section class="games-section">
-            <div class="games-container" id="gamesContainer">
-                <!-- Games will be dynamically inserted here -->
-            </div>
-            <div class="empty-state" id="emptyState">
-                <i class="fas fa-gamepad"></i>
-                <h3>No games in your catalog yet</h3>
-                <p>Start building your gaming achievement collection!</p>
-                <button class="add-game-btn">
-                    <i class="fas fa-plus"></i>
-                    Add Your First Game
-                </button>
-            </div>
-        </section>
-    </div>
+    <!-- Games Grid -->
+    <section class="games-section">
+        <div class="games-grid" id="gamesContainer">
+            <!-- Games will be dynamically loaded here -->
+        </div>
+    </section>
 
-    <!-- Add/Edit Game Modal -->
+    <!-- Modal for Adding/Editing Games -->
     <div class="modal-overlay" id="gameModal">
         <div class="modal">
             <div class="modal-header">
                 <h2 id="modalTitle">Add New Game</h2>
-                <button class="close-btn" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="close-btn" id="closeModal">&times;</button>
             </div>
             <form class="modal-form" id="gameForm">
                 <div class="form-group">
                     <label for="gameName">Game Name *</label>
                     <input type="text" id="gameName" required>
                 </div>
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label for="platform">Platform *</label>
@@ -171,6 +135,7 @@
                         </select>
                     </div>
                 </div>
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label for="completionDate">Completion Date *</label>
@@ -181,25 +146,29 @@
                         <input type="number" id="hoursPlayed" min="0" step="0.5">
                     </div>
                 </div>
+                
                 <div class="form-group">
-                    <label for="rating">Rating</label>
+                    <label>Rating</label>
                     <div class="rating-input" id="ratingInput">
-                        <span class="star" data-rating="1"><i class="far fa-star"></i></span>
-                        <span class="star" data-rating="2"><i class="far fa-star"></i></span>
-                        <span class="star" data-rating="3"><i class="far fa-star"></i></span>
-                        <span class="star" data-rating="4"><i class="far fa-star"></i></span>
-                        <span class="star" data-rating="5"><i class="far fa-star"></i></span>
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
                     </div>
                     <input type="hidden" id="rating" value="0">
                 </div>
+                
                 <div class="form-group">
                     <label for="comments">Comments</label>
-                    <textarea id="comments" rows="3" placeholder="Your thoughts about the game..."></textarea>
+                    <textarea id="comments" placeholder="Your thoughts about the game..."></textarea>
                 </div>
+                
                 <div class="form-group">
                     <label for="imageUrl">Game Cover URL (optional)</label>
                     <input type="url" id="imageUrl" placeholder="https://example.com/game-cover.jpg">
                 </div>
+                
                 <div class="form-actions">
                     <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
                     <button type="submit" class="btn-primary" id="submitBtn">Add Game</button>
@@ -208,6 +177,12 @@
         </div>
     </div>
 
+    <!-- Settings Button -->
+    <button class="settings-btn" id="settingsBtn" title="Settings">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <script src="game-images-mapping.js"></script>
     <script src="script-airtable.js"></script>
 </body>
 </html>
