@@ -312,24 +312,38 @@ class GameCatalogAirtable {
     async handleSubmit(e) {
         e.preventDefault();
         
-        const formData = new FormData(e.target);
-        const rating = parseInt(document.getElementById('ratingInput').dataset.rating) || 0;
+        const rating = parseInt(document.getElementById('ratingInput')?.dataset.rating) || 0;
         
         const gameData = {
-            name: formData.get('name').trim(),
-            platform: formData.get('platform'),
-            genre: formData.get('genre'),
-            completionDate: formData.get('completionDate'),
-            hoursPlayed: parseFloat(formData.get('hoursPlayed')) || 0,
+            name: document.getElementById('gameName').value.trim(),
+            platform: document.getElementById('platform').value,
+            genre: document.getElementById('genre').value,
+            completionDate: document.getElementById('completionDate').value,
+            hoursPlayed: parseFloat(document.getElementById('hoursPlayed').value) || 0,
             rating: rating,
-            comments: formData.get('comments').trim(),
+            comments: document.getElementById('comments').value.trim(),
             startDate: '', // Can be added later if needed
-            imageUrl: '', // Can be added later if needed
+            imageUrl: document.getElementById('imageUrl')?.value || '', // Can be added later if needed
             status: 'Completed'
         };
 
         if (!gameData.name) {
             this.showNotification('Game name is required!', 'error');
+            return;
+        }
+
+        if (!gameData.platform) {
+            this.showNotification('Platform is required!', 'error');
+            return;
+        }
+
+        if (!gameData.genre) {
+            this.showNotification('Genre is required!', 'error');
+            return;
+        }
+
+        if (!gameData.completionDate) {
+            this.showNotification('Completion date is required!', 'error');
             return;
         }
 
@@ -360,6 +374,7 @@ class GameCatalogAirtable {
             this.updateStats();
             
         } catch (error) {
+            console.error('Error in handleSubmit:', error);
             this.showNotification(`Error: ${error.message}`, 'error');
         }
     }
