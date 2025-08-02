@@ -578,6 +578,30 @@ class GameCatalogAirtable {
         document.getElementById('avgRating').textContent = avgRating;
     }
 
+    editGame(gameId) {
+        const game = this.games.find(g => g.id === gameId);
+        if (game) {
+            this.openModal(game);
+        }
+    }
+
+    async deleteGame(gameId) {
+        if (!confirm('Are you sure you want to delete this game?')) {
+            return;
+        }
+
+        try {
+            await this.deleteGameFromAirtable(gameId);
+            this.games = this.games.filter(g => g.id !== gameId);
+            this.renderGames();
+            this.updateStats();
+            this.showNotification('Game deleted successfully!', 'success');
+        } catch (error) {
+            console.error('Error deleting game:', error);
+            this.showNotification(`Error deleting game: ${error.message}`, 'error');
+        }
+    }
+
     showNotification(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
