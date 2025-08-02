@@ -5,27 +5,27 @@
 - [x] Clonar repositório
 - [x] Verificar conteúdo existente (repositório vazio)
 
-## Fase 2: Planejamento das funcionalidades do catálogo
-- [ ] Definir informações a serem catalogadas
-- [ ] Definir estrutura de dados
-- [ ] Planejar interface do usuário
-- [ ] Definir funcionalidades principais
+## Fase 2: Planejamento das funcionalidades do catálogo ✅
+- [x] Definir informações a serem catalogadas
+- [x] Definir estrutura de dados
+- [x] Planejar interface do usuário
+- [x] Definir funcionalidades principais
 
-## Fase 3: Desenvolvimento do web app
-- [ ] Criar estrutura HTML
-- [ ] Desenvolver CSS/estilos
-- [ ] Implementar JavaScript para funcionalidades
-- [ ] Criar sistema de armazenamento local
-- [ ] Implementar CRUD (Create, Read, Update, Delete)
+## Fase 3: Desenvolvimento do web app ✅
+- [x] Criar estrutura HTML
+- [x] Desenvolver CSS/estilos
+- [x] Implementar JavaScript para funcionalidades
+- [x] Criar sistema de armazenamento local
+- [x] Implementar CRUD (Create, Read, Update, Delete)
 
-## Fase 4: Preparação e teste para GitHub Pages
-- [ ] Testar funcionalidades
-- [ ] Verificar responsividade
-- [ ] Otimizar para GitHub Pages
-- [ ] Criar README.md
+## Fase 4: Preparação e teste para GitHub Pages ✅
+- [x] Testar funcionalidades
+- [x] Verificar responsividade
+- [x] Otimizar para GitHub Pages
+- [x] Criar README.md
 
-## Fase 5: Finalização e entrega
-- [ ] Commit final
-- [ ] Documentação
-- [ ] Instruções de uso
+## Fase 5: Finalização e entrega ✅
+- [x] Commit final
+- [x] Documentação
+- [x] Instruções de uso
 
